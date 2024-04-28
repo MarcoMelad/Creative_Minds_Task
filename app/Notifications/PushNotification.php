@@ -29,10 +29,9 @@ class PushNotification extends Notification implements ShouldQueue
     public function toFcm($notifiable): FcmMessage
     {
         return (new FcmMessage(notification: new FcmNotification(
-            title: 'Account Activated',
-            body: 'Your account has been activated.',
+            title: 'Static Message',
+            body: 'You Receive a Message From Admin.',
         )))
-            ->data(['data1' => 'value', 'data2' => 'value2'])
             ->custom([
                 'android' => [
                     'notification' => [

@@ -15,4 +15,5 @@ interface UserAuthRepositoryInterface
     public function user_profile();
 
     public function logout();
+    public function nearestDelivery();
 }

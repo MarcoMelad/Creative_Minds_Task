@@ -97,5 +97,28 @@ class UserAuthRepository implements UserAuthRepositoryInterface
         return successResponse(200, ['message' => 'User logged out successfully']);
     }
 
+    public function nearestDelivery()
+    {
+        $user = auth('api')->user();
 
+        $userLat = $user->latitude;
+        $userLon = $user->longitude;
+
+        if (empty($userLat) || empty($userLon)) {
+            return failedResponse(400, ['error' => 'Bad Request']);
+        }
+
+        $deliveryReps = User::where('type','delivery')->get();
+
+        foreach ($deliveryReps as &$deliveryRep) {
+            $deliveryRep['distance'] = calculateDistance($userLat, $userLon, $deliveryRep->latitude, $deliveryRep->longitude);
+        }
+
+        $deliveryRepsArray = $deliveryReps->toArray();
+        usort($deliveryRepsArray, function($a, $b) {
+            return $a['distance'] <=> $b['distance'];
+        });
+
+        return successResponse(200, ['data' => $deliveryReps[0]]);
+    }
 }

@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', [AuthController::class, 'logout']);
             Route::get('profile', [AuthController::class, 'user_profile']);
+            Route::get('nearest',[AuthController::class,'nearestDelivery']);
         });
 
     });

@@ -36,10 +36,13 @@ class AuthController extends Controller
         $result = $this->authRepository->user_profile();
         return response()->json($result, $result['status_code']);
     }
-
     public function logout(): JsonResponse
     {
         $result = $this->authRepository->logout();
         return response()->json($result, $result['status_code']);
+    }
+    public function nearestDelivery()
+    {
+        return $this->authRepository->nearestDelivery();
     }
 }
